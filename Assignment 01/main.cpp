@@ -14,12 +14,12 @@
 //        (e.g. your project folder)
 // - Click OK.
 //
-/*
-Student names: 
+
+/* Student names: 
    
     Maria Beltres
     Victor Mutandwa,vtm806, 201361797
-*/
+*/ 
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
@@ -27,6 +27,7 @@ Student names:
 #include <vector>
 #include <algorithm>
 #include <memory>
+
 struct MyShape
 {
     std::shared_ptr<sf::Shape> s;
@@ -36,7 +37,7 @@ struct MyShape
 
 int main(int argc, char * argv[])
 {
-    
+
     std::vector<MyShape> shapes;
     std::string token,fdir, shapeName;
     float posx, posy, sx, sy, radius, width, height;
@@ -45,10 +46,11 @@ int main(int argc, char * argv[])
     sf::Text text;
     // event handling
     sf::Event event;
+
     
     
     //Reading File
-    std::ifstream fin("/config.txt");
+    std::ifstream fin("config.txt");
 
     while (fin.good())
     {
@@ -66,6 +68,7 @@ int main(int argc, char * argv[])
                 std::cerr << "Could not load font!\n";
                 exit(-1);
             }
+
             std::cout<<"font done";
         }
         else if (token == "Rectangle")
@@ -77,8 +80,8 @@ int main(int argc, char * argv[])
             shape.s->setFillColor(sf::Color(r,g,b));
             shape.name=shapeName;
             shape.speed=sf::Vector2f(sx,sy);
-            shapes.push_back(shape);
-            std::cout<<"rectangle done";
+            shapes.push_back(shape);// adds the shape  to the vector
+     
         }
         else if (token == "Circle")
         {
@@ -90,11 +93,11 @@ int main(int argc, char * argv[])
             shape.name=shapeName;
             shape.speed=sf::Vector2f(sx,sy);
             shapes.push_back(shape);
-            std::cout<<"circle done";
+            
         }
     }
-    
-    sf::RenderWindow window(sf::VideoMode(winx, winy), "Assignment 01");
+    //Creates the Window with a title
+    sf::RenderWindow window(sf::VideoMode(winx, winy), "COMP4300 Assignment 1");
     while (window.isOpen())
     {
         //event handling
@@ -116,8 +119,8 @@ int main(int argc, char * argv[])
                 if (event.key.code == sf::Keyboard::X)
                 {
                     // reverse the direction of the circle on the screen
-                    //circleMoveSpeed *= -1.0f;
-                    std::cout<<"reverseCircle";
+                    // circleMoveSpeed *= -1.0f;
+                    
                 }
                 
                 // what happens when y is pressed
@@ -125,17 +128,17 @@ int main(int argc, char * argv[])
                 {
                     // reverse the direction of the circle on the screen
                     //rectangleMoveSpeed *= -1.0f;
-                    std::cout<<"reverseRec";
+            
                 }
             }
         }
-        
-        //Drawing Texts and shapes
+
+        //draw text and shapes
         window.clear();
-        float shapeposx,shapeposy;
+        float shapeposx,shapeposy,textposX,textposY;
         for (auto & i : shapes)
         {
-            //animation
+            //  basic animation
             i.s->setPosition(i.s->getPosition().x-i.speed.x, i.s->getPosition().y-i.speed.y);
             
             //bouncing
@@ -146,24 +149,24 @@ int main(int argc, char * argv[])
             
             //text
             text.setFont(arial);
-            text.setFillColor(sf::Color(f_r,f_g,f_b));
+          //  text.setFillColor(sf::Color(f_r,f_g,f_b));
             text.setString(i.name);
-            
-            //text positioning
-            shapeposx = i.s->getPosition().x;
-            shapeposy = i.s->getPosition().y;
-            text.setPosition(shapeposx-i.speed.x,shapeposy-i.speed.y);
-            
-            //draw
+            //text positioning to the centre
+            shapeposx = i.s->getPosition().x +i.s->getLocalBounds().width /2.0f;
+            shapeposy = i.s->getPosition().y +i.s->getLocalBounds().height /2.0f;
+            textposX= shapeposx-(text.getLocalBounds().width+ text.getLocalBounds().left)/2.0;
+            textposY=shapeposy-(text.getLocalBounds().height+ text.getLocalBounds().top)/2.0;
+            text.setPosition(textposX,textposY);
+           
+           
+            //draws the shapes to the window
             window.draw(*i.s);
             window.draw(text);
         }
+        //Displays the window
         window.display();
         
     }
     
-    
-    return 0;
+        return 0;
 }
-
-
