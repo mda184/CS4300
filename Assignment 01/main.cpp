@@ -14,6 +14,12 @@
 //        (e.g. your project folder)
 // - Click OK.
 //
+/*
+Student names: 
+   
+    Maria Beltres
+    Victor Mutandwa,vtm806, 201361797
+*/
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
@@ -42,7 +48,7 @@ int main(int argc, char * argv[])
     
     
     //Reading File
-    std::ifstream fin("/Users/mariaaloysius/Downloads/COMP4300_A1/Assignment 01/Assignment 01/conf.txt");
+    std::ifstream fin("/config.txt");
 
     while (fin.good())
     {
@@ -54,7 +60,7 @@ int main(int argc, char * argv[])
         else if (token == "Font")
         {
             fin>>fdir>>size>>f_r>>f_g>>f_b;
-            if (!arial.loadFromFile("/Users/mariaaloysius/Downloads/COMP4300_A1/Assignment 01/Assignment 01/fonts/arial.ttf"))
+            if (!arial.loadFromFile("fonts/arial.ttf"))
             {
                 // if we can't load the font, print an error to the error console and exit
                 std::cerr << "Could not load font!\n";
