@@ -18,7 +18,7 @@
 /* Student names: 
    
     Maria Beltres
-    Victor Mutandwa,vtm806, 201361797
+    Victor Mutandwa
 */ 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -154,8 +154,9 @@ int main(int argc, char * argv[])
             //text positioning to the centre
             shapeposx = i.s->getPosition().x +i.s->getLocalBounds().width /2.0f;
             shapeposy = i.s->getPosition().y +i.s->getLocalBounds().height /2.0f;
-            textposX= shapeposx-(text.getLocalBounds().width+ text.getLocalBounds().left)/2.0;
-            textposY=shapeposy-(text.getLocalBounds().height+ text.getLocalBounds().top)/2.0;
+           textposX= shapeposx-(text.getLocalBounds().width/2.0f + text.getLocalBounds().left);
+           textposY=shapeposy-(text.getLocalBounds().height/2.0f + text.getLocalBounds().top);
+
             text.setPosition(textposX,textposY);
            
            
